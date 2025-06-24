@@ -3,16 +3,17 @@ package com.example.kotlincorotinemviappwrite.Data
 import android.util.Log
 import com.example.kotlincorotinemviappwrite.Domain.Country
 import com.example.kotlincorotinemviappwrite.Domain.RepositoryInterface
+import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class MyRepository : RepositoryInterface {
+
+class MyRepository @Inject constructor(): RepositoryInterface {
 
     val countryApi = RetrofitInstance.countryApi
 
     override suspend fun getCountryByName(countryName: String) : Result<Country>
     {
-
         val response = withContext(Dispatchers.IO)
          {
              countryApi.getCountryByName(countryName)

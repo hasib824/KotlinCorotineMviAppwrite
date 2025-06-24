@@ -5,16 +5,18 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kotlincorotinemviappwrite.Presentation.CountryReducer.reduce
-import com.example.kotlincorotinemviappwrite.Data.MyRepository
-import com.example.kotlincorotinemviappwrite.Data.getCountryBynameUsecase
+import com.example.kotlincorotinemviappwrite.Domain.getCountryBynameUsecase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MyViewModel : ViewModel() {
+@HiltViewModel
+class MyViewModel @Inject constructor(val getCountryBynameUsecase: getCountryBynameUsecase) : ViewModel() {
 
     public val _state = MutableStateFlow(CountryState())
     public val state : StateFlow<CountryState> = _state
@@ -40,7 +42,7 @@ class MyViewModel : ViewModel() {
 
     suspend fun getCountryByName(name: String)
     {
-        val result  = getCountryBynameUsecase()(name)
+        val result  = getCountryBynameUsecase(name)
 
         result.onSuccess {
             println("Country result ${result.getOrNull().toString()}")
