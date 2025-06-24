@@ -8,9 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 
-class MyRepository @Inject constructor(): RepositoryInterface {
-
-    val countryApi = RetrofitInstance.countryApi
+class MyRepository @Inject constructor(val countryApi : CountryApiService): RepositoryInterface {
 
     override suspend fun getCountryByName(countryName: String) : Result<Country>
     {

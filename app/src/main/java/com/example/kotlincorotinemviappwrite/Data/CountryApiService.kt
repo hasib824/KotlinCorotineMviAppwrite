@@ -18,7 +18,4 @@ interface CountryApiService {
     @GET("v3.1/region/{region}")
     suspend fun getCountriesByRegion(@Path("region") region: String): Response<List<Country>>
 
-    companion object {
-        const val BASE_URL = "https://restcountries.com/"
-    }
 }
